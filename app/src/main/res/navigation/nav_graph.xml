@@ -5,6 +5,7 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
+    <!-- Member 4: Authentication Screens -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.property_listing_system.Member4.LoginFragment"
@@ -32,10 +33,63 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <!-- Member 4 & 7: Central Application Dashboard -->
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.example.property_listing_system.Member4.DashboardFragment"
         android:label="Dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_propertyListFragment"
+            app:destination="@id/propertyListFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_addEditPropertyFragment"
+            app:destination="@id/addEditPropertyFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_member6Fragment"
+            app:destination="@id/member6Fragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_member2Fragment"
+            app:destination="@id/member2Fragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- Member 5: Property Catalog & Forms -->
+    <fragment
+        android:id="@+id/propertyListFragment"
+        android:name="com.example.property_listing_system.member5.PropertyListFragment"
+        android:label="Property Catalog"
+        tools:layout="@layout/fragment_property_list">
+        <action
+            android:id="@+id/action_to_addEditProperty"
+            app:destination="@id/addEditPropertyFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addEditPropertyFragment"
+        android:name="com.example.property_listing_system.member5.AddEditPropertyFragment"
+        android:label="Add / Edit Property"
+        tools:layout="@layout/fragment_add_edit_property">
+        <argument
+            android:name="propertyId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <!-- Member 6: Network, Valuation & WorkManager Background Services -->
+    <fragment
+        android:id="@+id/member6Fragment"
+        android:name="com.example.property_listing_system.ui.member6.Member6Fragment"
+        android:label="Valuation &amp; Background Sync" />
+
+    <!-- Member 2: Room Database Console -->
+    <fragment
+        android:id="@+id/member2Fragment"
+        android:name="com.example.property_listing_system.ui.member2.Member2Fragment"
+        android:label="Room Database Console" />
 
 </navigation>

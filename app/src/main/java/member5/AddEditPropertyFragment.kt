@@ -16,6 +16,7 @@ import com.example.property_listing_system.data.local.database.AppDatabase
 import com.example.property_listing_system.data.local.datasource.PropertyLocalDataSourceImpl
 import com.example.property_listing_system.data.local.entity.PropertyEntity
 import com.example.property_listing_system.data.repository.PropertyRepositoryImpl
+import com.example.property_listing_system.data.validation.PropertyValidator
 import com.example.property_listing_system.viewmodel.PropertyViewModel
 import com.example.property_listing_system.viewmodel.PropertyViewModelFactory
 import kotlinx.coroutines.launch
@@ -81,6 +82,7 @@ class AddEditPropertyFragment : Fragment(R.layout.fragment_add_edit_property) {
                         etSquareFootage.setText(property.squareFootage.toString())
                         etContactPhone.setText(property.contactPhone)
                         etContactEmail.setText(property.contactEmail)
+                        btnSave.text = "Update Property"
                     }
                 }
             }
@@ -88,56 +90,79 @@ class AddEditPropertyFragment : Fragment(R.layout.fragment_add_edit_property) {
 
         btnSave.setOnClickListener {
             val title = etTitle.text.toString().trim()
-            val priceText = etPrice.text.toString().trim()
+            val description = etDescription.text.toString().trim()
+            val price = etPrice.text.toString().trim().toDoubleOrNull() ?: 0.0
             val address = etAddress.text.toString().trim()
-
-            var isValid = true
-            if (title.isEmpty()) {
-                etTitle.error = "Title is required"; isValid = false
-            }
-            val price = priceText.toDoubleOrNull()
-            if (price == null || price <= 0) {
-                etPrice.error = "Enter a valid price"; isValid = false
-            }
-            if (address.isEmpty()) {
-                etAddress.error = "Address is required"; isValid = false
-            }
+            val city = etCity.text.toString().trim().ifEmpty { "Nairobi" }
+            val bedrooms = etBedrooms.text.toString().toIntOrNull() ?: 1
+            val bathrooms = etBathrooms.text.toString().toIntOrNull() ?: 1
+            val sqft = etSquareFootage.text.toString().toDoubleOrNull() ?: 0.0
+            val phone = etContactPhone.text.toString().trim()
             val email = etContactEmail.text.toString().trim()
-            if (email.isNotEmpty() && !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                etContactEmail.error = "Enter a valid email"; isValid = false
-            }
-            if (!isValid) return@setOnClickListener
 
-            val property = PropertyEntity(
+            val propertyCandidate = PropertyEntity(
                 id = existingProperty?.id ?: 0L,
                 title = title,
-                description = etDescription.text.toString().trim(),
-                price = price!!,
+                description = description,
+                price = price,
                 currency = existingProperty?.currency ?: "KES",
                 propertyType = propertyTypes[spinnerType.selectedItemPosition],
                 address = address,
-                city = etCity.text.toString().trim().ifEmpty { "Nairobi" },
-                bedrooms = etBedrooms.text.toString().toIntOrNull() ?: 1,
-                bathrooms = etBathrooms.text.toString().toIntOrNull() ?: 1,
-                squareFootage = etSquareFootage.text.toString().toDoubleOrNull() ?: 0.0,
-                contactPhone = etContactPhone.text.toString().trim(),
+                city = city,
+                bedrooms = bedrooms,
+                bathrooms = bathrooms,
+                squareFootage = sqft,
+                contactPhone = phone,
                 contactEmail = email,
                 status = existingProperty?.status ?: PropertyEntity.STATUS_AVAILABLE,
                 isFeatured = existingProperty?.isFeatured ?: false,
                 isFavorite = existingProperty?.isFavorite ?: false
             )
 
+            // Member 7: Comprehensive validation with field-level error mapping
+            val validationResult = PropertyValidator.validate(propertyCandidate)
+            if (!validationResult.isValid) {
+                validationResult.fieldErrors.forEach { (field, err) ->
+                    when (field) {
+                        "title" -> etTitle.error = err
+                        "description" -> etDescription.error = err
+                        "price" -> etPrice.error = err
+                        "address" -> etAddress.error = err
+                        "bedrooms" -> etBedrooms.error = err
+                        "bathrooms" -> etBathrooms.error = err
+                        "squareFootage" -> etSquareFootage.error = err
+                        "contactPhone" -> etContactPhone.error = err
+                        "contactEmail" -> etContactEmail.error = err
+                    }
+                }
+                Toast.makeText(
+                    requireContext(),
+                    validationResult.errorMessage ?: "Validation error",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
             viewLifecycleOwner.lifecycleScope.launch {
                 val result = if (existingProperty != null) {
-                    viewModel.updateProperty(property)
+                    viewModel.updateProperty(propertyCandidate)
                 } else {
-                    viewModel.addProperty(property)
+                    viewModel.addProperty(propertyCandidate)
                 }
 
                 result.onSuccess {
+                    Toast.makeText(
+                        requireContext(),
+                        if (existingProperty != null) "Property updated successfully!" else "Property added to database!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     findNavController().popBackStack()
                 }.onFailure { error ->
-                    Toast.makeText(requireContext(), "Save failed: ${error.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Save failed: ${error.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
