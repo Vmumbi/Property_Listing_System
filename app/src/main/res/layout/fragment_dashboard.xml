@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#F8F9FA">
+    android:background="@color/theme_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,23 +13,121 @@
         android:padding="20dp"
         android:gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- Top Bar: Title & Dark/Light Mode Switch -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Property Listing System"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#1A237E"
-            android:layout_marginTop="16dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="16dp">
 
-        <TextView
-            android:id="@+id/tvWelcomeUser"
-            android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Property Listing"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/theme_text_primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Integrated Multi-User Hub"
+                    android:textSize="12sp"
+                    android:textColor="@color/theme_text_secondary" />
+            </LinearLayout>
+
+            <!-- Theme Mode Switch -->
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchDarkMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🌙 Dark Mode"
+                android:textSize="12sp"
+                android:textColor="@color/theme_text_primary"
+                app:useMaterialThemeColors="true" />
+        </LinearLayout>
+
+        <!-- Active User Profile & Role Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Integrated 7-Member Application Hub"
-            android:textSize="14sp"
-            android:textColor="#5C6BC0"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1.5dp"
+            app:strokeColor="@color/blue_primary"
+            app:cardBackgroundColor="@color/blue_light_bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvUserName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="User Name"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/blue_primary" />
+
+                        <TextView
+                            android:id="@+id/tvUserEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="user@domain.com"
+                            android:textSize="13sp"
+                            android:textColor="@color/navy_text_secondary" />
+                    </LinearLayout>
+
+                    <!-- Role Badge -->
+                    <TextView
+                        android:id="@+id/tvRoleBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Buyer / Tenant"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:background="@drawable/ic_launcher_background"
+                        android:backgroundTint="@color/blue_primary"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvRoleDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Role specifications description"
+                    android:textSize="11sp"
+                    android:textColor="@color/navy_text_muted"
+                    android:layout_marginTop="8dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Live Database Stats Card -->
         <com.google.android.material.card.MaterialCardView
@@ -37,24 +135,24 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="0dp"
             app:strokeWidth="1dp"
-            app:strokeColor="#C5CAE9">
+            app:strokeColor="@color/theme_card_border"
+            app:cardBackgroundColor="@color/theme_card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp"
-                android:background="#E8EAF6">
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Database &amp; Sync State (Member 2 &amp; 7)"
-                    android:textSize="12sp"
+                    android:text="Room Database Status"
+                    android:textSize="11sp"
                     android:textStyle="bold"
-                    android:textColor="#3949AB" />
+                    android:textColor="@color/blue_primary" />
 
                 <TextView
                     android:id="@+id/tvDatabaseStats"
@@ -63,71 +161,85 @@
                     android:text="Connecting to Room database..."
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="#1A237E"
-                    android:layout_marginTop="4dp" />
+                    android:textColor="@color/theme_text_primary"
+                    android:layout_marginTop="3dp" />
 
                 <TextView
                     android:id="@+id/tvSubStats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Offline-first Room database active"
-                    android:textSize="12sp"
-                    android:textColor="#7986CB"
+                    android:text="StateFlow live observation active"
+                    android:textSize="11sp"
+                    android:textColor="@color/theme_text_secondary"
                     android:layout_marginTop="2dp" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Navigation Buttons -->
+        <!-- Navigation Action Buttons (Blue & White) -->
         <Button
             android:id="@+id/btnBrowseProperties"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="54dp"
             android:text="🏢  Browse Properties (RecyclerView)"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:textStyle="bold"
-            android:layout_marginBottom="12dp"
-            app:cornerRadius="8dp" />
+            android:textColor="@color/white"
+            android:backgroundTint="@color/blue_primary"
+            app:cornerRadius="10dp"
+            android:layout_marginBottom="12dp" />
 
         <Button
             android:id="@+id/btnAddProperty"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="➕  Add New Property (Interactive Form)"
-            android:textSize="15sp"
+            android:layout_height="54dp"
+            android:text="➕  Add New Property (Agent / Admin)"
+            android:textSize="14sp"
             android:textStyle="bold"
-            android:layout_marginBottom="12dp"
-            app:cornerRadius="8dp" />
+            android:textColor="@color/blue_primary"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/blue_primary"
+            app:strokeWidth="1.5dp"
+            app:cornerRadius="10dp"
+            android:layout_marginBottom="12dp" />
 
         <Button
             android:id="@+id/btnValuationSync"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="📊  Valuation &amp; WorkManager Sync"
-            android:textSize="15sp"
+            android:layout_height="54dp"
+            android:text="📊  AI Valuation &amp; WorkManager Sync"
+            android:textSize="14sp"
             android:textStyle="bold"
-            android:layout_marginBottom="12dp"
-            app:cornerRadius="8dp" />
+            android:textColor="@color/blue_primary"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/blue_primary"
+            app:strokeWidth="1.5dp"
+            app:cornerRadius="10dp"
+            android:layout_marginBottom="12dp" />
 
         <Button
             android:id="@+id/btnDatabaseConsole"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="💾  Room Database Console &amp; CRUD"
-            android:textSize="15sp"
+            android:layout_height="54dp"
+            android:text="💾  Room Database Console (Admin)"
+            android:textSize="14sp"
             android:textStyle="bold"
-            android:layout_marginBottom="20dp"
-            app:cornerRadius="8dp" />
+            android:textColor="@color/blue_primary"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/blue_primary"
+            app:strokeWidth="1.5dp"
+            app:cornerRadius="10dp"
+            android:layout_marginBottom="24dp" />
 
+        <!-- Logout Button -->
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Logout"
-            android:textColor="#C62828"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="#EF9A9A"
-            app:cornerRadius="8dp" />
+            android:layout_height="46dp"
+            android:text="Sign Out"
+            android:textColor="@color/theme_text_secondary"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_marginBottom="16dp" />
 
     </LinearLayout>
 </ScrollView>

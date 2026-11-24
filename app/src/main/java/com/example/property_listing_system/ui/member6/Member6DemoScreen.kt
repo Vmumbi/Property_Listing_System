@@ -414,9 +414,9 @@ private fun BackgroundSyncCard(
             ) {
                 Text(text = "Worker Status:", style = MaterialTheme.typography.labelMedium)
                 val statusColor = when (uiState.syncState) {
-                    "SUCCEEDED" -> Color(0xFF2E7D32)
-                    "RUNNING" -> Color(0xFF1565C0)
-                    "ENQUEUED" -> Color(0xFFE65100)
+                    "SUCCEEDED" -> Color(0xFF1E40AF)
+                    "RUNNING" -> Color(0xFF3B82F6)
+                    "ENQUEUED" -> Color(0xFF60A5FA)
                     else -> MaterialTheme.colorScheme.outline
                 }
                 Box(
@@ -547,14 +547,14 @@ private fun ReminderCard(
                     Icon(
                         imageVector = Icons.Default.CheckCircle,
                         contentDescription = null,
-                        tint = Color(0xFF2E7D32),
+                        tint = Color(0xFF1E40AF),
                         modifier = Modifier.height(16.dp)
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = status,
                         style = MaterialTheme.typography.bodySmall,
-                        color = Color(0xFF2E7D32)
+                        color = Color(0xFF1E40AF)
                     )
                 }
             }

@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <!-- Strictly Blue & White Color Palette -->
+    <color name="blue_primary">#1A56DB</color>
+    <color name="blue_primary_dark">#0F3EAE</color>
+    <color name="blue_secondary">#3B82F6</color>
+    <color name="blue_light_bg">#EBF2FE</color>
+    <color name="blue_surface_light">#F8FAFD</color>
+    <color name="blue_card_border">#D1E0FB</color>
+    <color name="blue_accent">#60A5FA</color>
+
     <color name="white">#FFFFFFFF</color>
+    <color name="off_white">#F8FAFD</color>
+    <color name="navy_text_primary">#0F172A</color>
+    <color name="navy_text_secondary">#475569</color>
+    <color name="navy_text_muted">#64748B</color>
+
+    <!-- Semantic Theme Colors (Light Default) -->
+    <color name="theme_background">#F8FAFD</color>
+    <color name="theme_surface">#FFFFFFFF</color>
+    <color name="theme_card">#FFFFFFFF</color>
+    <color name="theme_card_border">#D1E0FB</color>
+    <color name="theme_text_primary">#0F172A</color>
+    <color name="theme_text_secondary">#475569</color>
 </resources>

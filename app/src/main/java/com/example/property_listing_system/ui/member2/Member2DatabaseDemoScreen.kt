@@ -250,9 +250,9 @@ fun PropertyCard(
                     Spacer(modifier = Modifier.width(6.dp))
                     Surface(
                         color = when (property.status) {
-                            PropertyEntity.STATUS_AVAILABLE -> Color(0xFF2E7D32)
-                            PropertyEntity.STATUS_RENTED -> Color(0xFFE65100)
-                            else -> Color(0xFFC62828)
+                            PropertyEntity.STATUS_AVAILABLE -> Color(0xFF1E40AF)
+                            PropertyEntity.STATUS_RENTED -> Color(0xFF3B82F6)
+                            else -> Color(0xFF64748B)
                         },
                         shape = RoundedCornerShape(6.dp)
                     ) {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Mode application theme (Midnight Navy Blue & Crisp White) -->
+    <style name="Theme.Property_Listing_System" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary Brand Colors -->
+        <item name="colorPrimary">@color/blue_primary</item>
+        <item name="colorPrimaryVariant">@color/blue_primary_dark</item>
+        <item name="colorSecondary">@color/blue_secondary</item>
+
+        <!-- Background & Surface Colors -->
+        <item name="android:windowBackground">@color/theme_background</item>
+        <item name="android:colorBackground">@color/theme_background</item>
+        <item name="colorSurface">@color/theme_surface</item>
+
+        <!-- Text Colors -->
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSurface">@color/theme_text_primary</item>
+        <item name="android:textColorPrimary">@color/theme_text_primary</item>
+        <item name="android:textColorSecondary">@color/theme_text_secondary</item>
+
+        <!-- Status & Navigation Bar -->
+        <item name="android:statusBarColor">@color/theme_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>
