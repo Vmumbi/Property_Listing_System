@@ -14,15 +14,10 @@ import kotlinx.coroutines.launch
 
 /**
  * AppDatabase is the main Room Database class for the Property Listing System.
- *
- * Implements:
- * - Thread-safe Singleton pattern with double-checked locking
- * - Pre-population callback to seed realistic initial property records into SQLite
- * - Custom TypeConverters for complex types
  */
 @Database(
     entities = [PropertyEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -54,9 +49,6 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        /**
-         * Room Callback to populate the database upon first creation.
-         */
         private class PropertyDatabaseCallback(
             private val scope: CoroutineScope
         ) : RoomDatabase.Callback() {
@@ -70,10 +62,6 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        /**
-         * Populates realistic Kenyan real estate property listings.
-         * Satisfies the marking requirement: no hardcoded UI data, true SQLite persistence.
-         */
         suspend fun populateInitialProperties(dao: PropertyDao) {
             val initialListings = getSampleInitialProperties()
             dao.insertProperties(initialListings)
@@ -85,8 +73,9 @@ abstract class AppDatabase : RoomDatabase() {
                 PropertyEntity(
                     title = "Luxury 3-Bedroom Penthouse with Panoramic Views",
                     description = "Executive penthouse offering unmatched skyline views, rooftop heated pool, gym, high-speed elevators, and backup generator.",
-                    price = 24500000.0,
+                    price = 180000.0,
                     currency = "KES",
+                    pricePeriod = PropertyEntity.PERIOD_MONTHLY,
                     propertyType = PropertyEntity.TYPE_APARTMENT,
                     address = "Westlands, Rhapta Road",
                     city = "Nairobi",
@@ -97,7 +86,8 @@ abstract class AppDatabase : RoomDatabase() {
                     squareFootage = 2200.0,
                     imageUrl = "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80",
                     contactPhone = "+254712345678",
-                    contactEmail = "westlands.listings@realtor.co.ke",
+                    contactEmail = "agent@realtor.co.ke",
+                    agentEmail = "agent@realtor.co.ke",
                     isFeatured = true,
                     isFavorite = true,
                     status = PropertyEntity.STATUS_AVAILABLE,
@@ -109,6 +99,7 @@ abstract class AppDatabase : RoomDatabase() {
                     description = "Magnificent villa set in a serene mature garden, features hardwood floors, grand fireplace, private DSQ for 2, and electric fencing.",
                     price = 78000000.0,
                     currency = "KES",
+                    pricePeriod = PropertyEntity.PERIOD_TOTAL,
                     propertyType = PropertyEntity.TYPE_VILLA,
                     address = "Karen, Mbagathi Ridge",
                     city = "Nairobi",
@@ -119,7 +110,8 @@ abstract class AppDatabase : RoomDatabase() {
                     squareFootage = 4500.0,
                     imageUrl = "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80",
                     contactPhone = "+254722987654",
-                    contactEmail = "karen.homes@realtor.co.ke",
+                    contactEmail = "agent@realtor.co.ke",
+                    agentEmail = "agent@realtor.co.ke",
                     isFeatured = true,
                     isFavorite = false,
                     status = PropertyEntity.STATUS_AVAILABLE,
@@ -129,8 +121,9 @@ abstract class AppDatabase : RoomDatabase() {
                 PropertyEntity(
                     title = "Executive 2-Bedroom Apartment Near Yaya Centre",
                     description = "Spacious modern apartment with open plan kitchen, ensuite bedrooms, borehole water supply, intercom, and perimeter wall.",
-                    price = 14500000.0,
+                    price = 95000.0,
                     currency = "KES",
+                    pricePeriod = PropertyEntity.PERIOD_MONTHLY,
                     propertyType = PropertyEntity.TYPE_APARTMENT,
                     address = "Kilimani, Argwings Kodhek",
                     city = "Nairobi",
@@ -141,7 +134,8 @@ abstract class AppDatabase : RoomDatabase() {
                     squareFootage = 1350.0,
                     imageUrl = "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80",
                     contactPhone = "+254733112233",
-                    contactEmail = "kilimani.estates@realtor.co.ke",
+                    contactEmail = "agent@realtor.co.ke",
+                    agentEmail = "agent@realtor.co.ke",
                     isFeatured = false,
                     isFavorite = false,
                     status = PropertyEntity.STATUS_AVAILABLE,
@@ -150,11 +144,12 @@ abstract class AppDatabase : RoomDatabase() {
                 ),
                 PropertyEntity(
                     title = "Modern 4-Bedroom Townhouse in Gated Estate",
-                    description = "Gated family community with private children's play park, clubhouse, solar water heating, 24hr CCTV surveillance and security.",
+                    description = "Family-friendly gated community with clubhouse, kids play area, private DSQ, solar water heating, and perimeter electric fence.",
                     price = 36000000.0,
                     currency = "KES",
+                    pricePeriod = PropertyEntity.PERIOD_TOTAL,
                     propertyType = PropertyEntity.TYPE_TOWNHOUSE,
-                    address = "Lavington, James Gichuru Road",
+                    address = "Lavington, James Gichuru",
                     city = "Nairobi",
                     latitude = -1.2789,
                     longitude = 36.7689,
@@ -163,29 +158,32 @@ abstract class AppDatabase : RoomDatabase() {
                     squareFootage = 3100.0,
                     imageUrl = "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80",
                     contactPhone = "+254701445566",
-                    contactEmail = "lavington.realty@realtor.co.ke",
+                    contactEmail = "admin@strathmore.edu",
+                    agentEmail = "admin@strathmore.edu",
                     isFeatured = false,
-                    isFavorite = true,
+                    isFavorite = false,
                     status = PropertyEntity.STATUS_AVAILABLE,
                     createdTimestamp = now - 10800000,
                     remoteId = "REMOTE-004"
                 ),
                 PropertyEntity(
-                    title = "Prime Commercial Office Space (Grade A)",
-                    description = "Contemporary open-floor office space with high-speed fiber internet, central air conditioning, ample parking, and cafeteria.",
-                    price = 45000000.0,
+                    title = "Prime Commercial Office Suite on 5th Floor",
+                    description = "Fitted corporate office space with high-speed fiber internet, dedicated basement parking slots, and round-the-clock security.",
+                    price = 1200000.0,
                     currency = "KES",
+                    pricePeriod = PropertyEntity.PERIOD_YEARLY,
                     propertyType = PropertyEntity.TYPE_COMMERCIAL,
                     address = "Upper Hill, Hospital Road",
                     city = "Nairobi",
-                    latitude = -1.2987,
-                    longitude = 36.8167,
+                    latitude = -1.2989,
+                    longitude = 36.8156,
                     bedrooms = 0,
-                    bathrooms = 4,
-                    squareFootage = 3500.0,
+                    bathrooms = 2,
+                    squareFootage = 1800.0,
                     imageUrl = "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80",
-                    contactPhone = "+254720998877",
-                    contactEmail = "commercial@realtor.co.ke",
+                    contactPhone = "+254711223344",
+                    contactEmail = "admin@strathmore.edu",
+                    agentEmail = "admin@strathmore.edu",
                     isFeatured = true,
                     isFavorite = false,
                     status = PropertyEntity.STATUS_AVAILABLE,
@@ -193,23 +191,25 @@ abstract class AppDatabase : RoomDatabase() {
                     remoteId = "REMOTE-005"
                 ),
                 PropertyEntity(
-                    title = "Oceanview 3-Bedroom Holiday Apartment",
-                    description = "Stunning beachfront property along Nyali Beach. Ideal as high-earning Airbnb investment with ocean breeze, pool, and bar.",
-                    price = 21000000.0,
+                    title = "0.25 Acre Residential Plot with Clean Title Deed",
+                    description = "Ready-to-build red soil plot in a developed secure neighborhood. Water and electricity on site. Ready freehold title.",
+                    price = 12500000.0,
                     currency = "KES",
-                    propertyType = PropertyEntity.TYPE_APARTMENT,
-                    address = "Nyali, Beach Road",
-                    city = "Mombasa",
-                    latitude = -4.0435,
-                    longitude = 39.6682,
-                    bedrooms = 3,
-                    bathrooms = 2,
-                    squareFootage = 1800.0,
-                    imageUrl = "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600&q=80",
-                    contactPhone = "+254711223344",
-                    contactEmail = "coast.properties@realtor.co.ke",
-                    isFeatured = true,
-                    isFavorite = true,
+                    pricePeriod = PropertyEntity.PERIOD_TOTAL,
+                    propertyType = PropertyEntity.TYPE_LAND,
+                    address = "Runda, Mimosa Drive",
+                    city = "Nairobi",
+                    latitude = -1.2186,
+                    longitude = 36.8184,
+                    bedrooms = 0,
+                    bathrooms = 0,
+                    squareFootage = 10890.0,
+                    imageUrl = "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80",
+                    contactPhone = "+254788990011",
+                    contactEmail = "agent@realtor.co.ke",
+                    agentEmail = "agent@realtor.co.ke",
+                    isFeatured = false,
+                    isFavorite = false,
                     status = PropertyEntity.STATUS_AVAILABLE,
                     createdTimestamp = now - 18000000,
                     remoteId = "REMOTE-006"

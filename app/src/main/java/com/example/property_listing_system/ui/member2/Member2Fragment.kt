@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.property_listing_system.ui.theme.Property_Listing_SystemTheme
 
 /**
@@ -21,7 +22,9 @@ class Member2Fragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 Property_Listing_SystemTheme {
-                    Member2DatabaseDemoScreen()
+                    Member2DatabaseDemoScreen(
+                        onNavigateBack = { findNavController().popBackStack() }
+                    )
                 }
             }
         }

@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Apartment
 import androidx.compose.material.icons.filled.Assessment
 import androidx.compose.material.icons.filled.CheckCircle
@@ -33,6 +34,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -64,7 +66,8 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Member6DemoScreen(
-    viewModel: Member6ViewModel = viewModel()
+    viewModel: Member6ViewModel = viewModel(),
+    onNavigateBack: (() -> Unit)? = null
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val scrollState = rememberScrollState()
@@ -73,22 +76,23 @@ fun Member6DemoScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Column {
-                        Text(
-                            text = "Property Listing System",
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
-                        Text(
-                            text = "Member 6: Network, API & Background WorkManager",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f)
-                        )
+                    Text(
+                        text = "Property Valuation",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                navigationIcon = {
+                    if (onNavigateBack != null) {
+                        IconButton(onClick = onNavigateBack) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             )
         }
@@ -109,22 +113,7 @@ fun Member6DemoScreen(
                 }
             )
 
-            // Section 2: WorkManager Background Sync
-            BackgroundSyncCard(
-                uiState = uiState,
-                onImmediateSync = { viewModel.triggerImmediateSync() },
-                onSchedulePeriodic = { viewModel.schedulePeriodicSync() }
-            )
-
-            // Section 3: WorkManager Reminders
-            ReminderCard(
-                uiState = uiState,
-                onScheduleReminder = { title, seconds ->
-                    viewModel.scheduleViewingReminder(title, seconds)
-                }
-            )
-
-            // Section 4: Location & Maps Integration
+            // Section 2: Location & Maps Integration
             LocationMapsCard(
                 uiState = uiState,
                 onDetectLocation = { viewModel.detectCurrentLocation() },
@@ -166,7 +155,7 @@ private fun ValuationApiCard(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "1. External API: Property Valuation Engine",
+                    text = "Property Valuation Calculator",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -581,7 +570,7 @@ private fun LocationMapsCard(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "4. Location & External Maps",
+                    text = "Location & Maps",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )

@@ -5,7 +5,6 @@ import java.util.regex.Pattern
 
 /**
  * PropertyValidator ensures data integrity and business rules before Room database operations.
- * Maintained by Member 7: Integration, Validation & QA.
  */
 object PropertyValidator {
 
@@ -61,8 +60,12 @@ object PropertyValidator {
             errors["squareFootage"] = "Square footage cannot be negative."
         }
 
-        if (property.contactPhone.isNotBlank() && !isValidPhoneNumber(property.contactPhone)) {
-            errors["contactPhone"] = "Contact phone number format is invalid."
+        if (property.contactPhone.isNotBlank()) {
+            if (!isValidKenyanPhoneNumber(property.contactPhone)) {
+                errors["contactPhone"] = "Phone number must be a valid Kenyan number: 10 digits (07... or 01...) or 12 digits (+254...)."
+            }
+        } else {
+            errors["contactPhone"] = "Contact phone number is required."
         }
 
         if (property.contactEmail.isNotBlank() && !isValidEmail(property.contactEmail)) {
@@ -80,12 +83,21 @@ object PropertyValidator {
         }
     }
 
-    fun isValidPhoneNumber(phone: String): Boolean {
-        // Accepts Kenyan (+254..., 07..., 01...) and general international phone numbers
-        val sanitized = phone.replace(" ", "").replace("-", "")
-        val regex = Regex("""^(\+?[0-9]{9,15})$""")
+    /**
+     * Strict Kenyan phone number validation enforcing exact digit count:
+     * - 10 digits starting with 07 or 01 (e.g., 0712345678, 0112345678)
+     * - 12 digits starting with 254 (e.g., 254712345678)
+     * - 13 characters starting with +254 (e.g., +254712345678)
+     */
+    fun isValidKenyanPhoneNumber(phone: String): Boolean {
+        val sanitized = phone.replace(" ", "").replace("-", "").trim()
+        // Accept 07xxxxxxxx / 01xxxxxxxx (10 digits) or +2547xxxxxxxx / 2547xxxxxxxx (12/13 chars)
+        val regex = Regex("""^(\+254\d{9}|254\d{9}|0\d{9})$""")
         return regex.matches(sanitized)
     }
+
+    // Retained for backward-compatibility with other tests
+    fun isValidPhoneNumber(phone: String): Boolean = isValidKenyanPhoneNumber(phone)
 
     fun isValidEmail(email: String): Boolean {
         return EMAIL_PATTERN.matcher(email.trim()).matches()

@@ -29,31 +29,27 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val btnQuickBuyer = view.findViewById<Button>(R.id.btnQuickBuyer)
         val btnQuickAgent = view.findViewById<Button>(R.id.btnQuickAgent)
         val btnQuickAdmin = view.findViewById<Button>(R.id.btnQuickAdmin)
-        val tvQuickAccountHint = view.findViewById<TextView>(R.id.tvQuickAccountHint)
 
         // Quick Demo Fill Listeners
-        btnQuickBuyer.setOnClickListener {
+        btnQuickBuyer?.setOnClickListener {
             etEmail.setText(AuthManager.DEMO_BUYER.email)
             etPassword.setText(AuthManager.DEMO_BUYER.password)
             tilEmail.error = null
             tilPassword.error = null
-            tvQuickAccountHint.text = "Filled: ${AuthManager.DEMO_BUYER.name} (Buyer / Tenant)"
         }
 
-        btnQuickAgent.setOnClickListener {
+        btnQuickAgent?.setOnClickListener {
             etEmail.setText(AuthManager.DEMO_AGENT.email)
             etPassword.setText(AuthManager.DEMO_AGENT.password)
             tilEmail.error = null
             tilPassword.error = null
-            tvQuickAccountHint.text = "Filled: ${AuthManager.DEMO_AGENT.name} (Real Estate Agent)"
         }
 
-        btnQuickAdmin.setOnClickListener {
+        btnQuickAdmin?.setOnClickListener {
             etEmail.setText(AuthManager.DEMO_ADMIN.email)
             etPassword.setText(AuthManager.DEMO_ADMIN.password)
             tilEmail.error = null
             tilPassword.error = null
-            tvQuickAccountHint.text = "Filled: ${AuthManager.DEMO_ADMIN.name} (Administrator)"
         }
 
         btnLogin.setOnClickListener {
@@ -80,7 +76,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             loginResult.onSuccess { account ->
                 Toast.makeText(
                     requireContext(),
-                    "Welcome, ${account.name} (${account.role.displayName})",
+                    "Welcome, ${account.name}",
                     Toast.LENGTH_SHORT
                 ).show()
                 findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
@@ -93,7 +89,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     tilEmail.error = msg
                     etEmail.requestFocus()
                 }
-                Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
             }
         }
 

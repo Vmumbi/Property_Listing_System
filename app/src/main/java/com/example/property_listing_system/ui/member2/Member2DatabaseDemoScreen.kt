@@ -8,12 +8,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -55,15 +55,16 @@ fun Member2DatabaseDemoScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Column {
-                        Text("Room Database Engine", fontWeight = FontWeight.Bold, fontSize = 18.sp)
-                        Text("Member 2: Persistence & CRUD", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("Room Database Console", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                },
+                navigationIcon = {
+                    if (onNavigateBack != null) {
+                        IconButton(onClick = onNavigateBack) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        }
                     }
                 },
                 actions = {
-                    IconButton(onClick = { viewModel.seedSampleData() }) {
-                        Icon(Icons.Default.Refresh, contentDescription = "Seed Sample Data")
-                    }
                     IconButton(onClick = { viewModel.clearAllData() }) {
                         Icon(Icons.Default.Delete, contentDescription = "Clear All")
                     }
@@ -91,11 +92,12 @@ fun Member2DatabaseDemoScreen(
         ) {
             Spacer(modifier = Modifier.height(8.dp))
 
-            // 1. Database Statistics Banner
-            DatabaseStatsBanner(
-                total = totalCount,
-                available = availableCount,
-                favorites = favorites.size
+            // 1. Property Count Info (clean, no stats banner card)
+            Text(
+                text = "$totalCount properties in SQLite  •  $availableCount available  •  ${favorites.size} favourites",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(horizontal = 2.dp)
             )
 
             Spacer(modifier = Modifier.height(12.dp))

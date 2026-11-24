@@ -1,170 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
+    android:orientation="vertical"
     android:background="@color/theme_background">
 
+    <!-- Top Navigation Toolbar with Back Button -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="8dp"
+        android:background="@color/theme_surface"
+        android:elevation="2dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Property Details Form"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/theme_text_primary"
-            android:layout_marginBottom="4dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter property specifications to save to Room database"
-            android:textSize="12sp"
-            android:textColor="@color/theme_text_secondary"
-            android:layout_marginBottom="16dp" />
-
-        <EditText
-            android:id="@+id/etTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Property Title (min 3 chars)"
-            android:textColor="@color/theme_text_primary"
-            android:textColorHint="@color/navy_text_muted"
-            android:layout_marginBottom="12dp" />
-
-        <EditText
-            android:id="@+id/etDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Detailed Description"
-            android:minLines="3"
-            android:gravity="top"
-            android:textColor="@color/theme_text_primary"
-            android:textColorHint="@color/navy_text_muted"
-            android:layout_marginBottom="12dp" />
-
-        <EditText
-            android:id="@+id/etPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Price (KES)"
-            android:inputType="numberDecimal"
-            android:textColor="@color/theme_text_primary"
-            android:textColorHint="@color/navy_text_muted"
-            android:layout_marginBottom="12dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Property Type:"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:textColor="@color/blue_primary"
-            android:layout_marginBottom="4dp" />
-
-        <Spinner
-            android:id="@+id/spinnerPropertyType"
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/btnBackFromAddEdit"
+            android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/ic_launcher_background"
-            android:backgroundTint="@color/blue_light_bg"
-            android:padding="8dp"
-            android:layout_marginBottom="12dp" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_revert"
+            android:rotation="180"
+            app:tint="@color/blue_primary"
+            android:contentDescription="Back" />
 
-        <EditText
-            android:id="@+id/etAddress"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvFormTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Address (e.g. Rhapta Road, Westlands)"
+            android:layout_weight="1"
+            android:text="Property Details Form"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:textColor="@color/theme_text_primary"
-            android:textColorHint="@color/navy_text_muted"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginStart="8dp" />
 
-        <EditText
-            android:id="@+id/etCity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="City"
-            android:text="Nairobi"
-            android:textColor="@color/theme_text_primary"
-            android:textColorHint="@color/navy_text_muted"
-            android:layout_marginBottom="12dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="12dp">
+            android:orientation="vertical"
+            android:padding="20dp">
 
+            <!-- Title -->
             <EditText
-                android:id="@+id/etBedrooms"
-                android:layout_width="0dp"
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Bedrooms"
-                android:inputType="number"
+                android:hint="Property Title (min 3 chars)"
                 android:textColor="@color/theme_text_primary"
                 android:textColorHint="@color/navy_text_muted"
-                android:layout_marginEnd="6dp" />
+                android:layout_marginBottom="12dp" />
+
+            <!-- Description -->
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Detailed Description"
+                android:minLines="3"
+                android:gravity="top"
+                android:textColor="@color/theme_text_primary"
+                android:textColorHint="@color/navy_text_muted"
+                android:layout_marginBottom="14dp" />
+
+            <!-- Price & Period Options (Monthly / Yearly / Total) -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Price &amp; Billing Period:"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue_primary"
+                android:layout_marginBottom="4dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="14dp">
+
+                <EditText
+                    android:id="@+id/etPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4"
+                    android:hint="Price (KES)"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/theme_text_primary"
+                    android:textColorHint="@color/navy_text_muted"
+                    android:layout_marginEnd="8dp" />
+
+                <Spinner
+                    android:id="@+id/spinnerPricePeriod"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_launcher_background"
+                    android:backgroundTint="@color/blue_light_bg"
+                    android:padding="6dp" />
+            </LinearLayout>
+
+            <!-- Property Type -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Property Type:"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue_primary"
+                android:layout_marginBottom="4dp" />
+
+            <Spinner
+                android:id="@+id/spinnerPropertyType"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/ic_launcher_background"
+                android:backgroundTint="@color/blue_light_bg"
+                android:padding="8dp"
+                android:layout_marginBottom="14dp" />
+
+            <!-- Property Image Section (Agent & Admin) -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Property Image (URL or Preset):"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue_primary"
+                android:layout_marginBottom="4dp" />
 
             <EditText
-                android:id="@+id/etBathrooms"
-                android:layout_width="0dp"
+                android:id="@+id/etImageUrl"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Bathrooms"
-                android:inputType="number"
+                android:hint="Image URL (e.g. https://...)"
+                android:inputType="textUri"
                 android:textColor="@color/theme_text_primary"
-                android:textColorHint="@color/navy_text_muted" />
+                android:textColorHint="@color/navy_text_muted"
+                android:layout_marginBottom="6dp" />
+
+            <!-- Preset Image Selector Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="14dp">
+
+                <Button
+                    android:id="@+id/btnPresetPenthouse"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:text="Penthouse"
+                    android:textSize="10sp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:textColor="@color/blue_primary"
+                    app:strokeColor="@color/blue_primary"
+                    app:cornerRadius="6dp"
+                    android:layout_marginEnd="4dp" />
+
+                <Button
+                    android:id="@+id/btnPresetVilla"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:text="Villa"
+                    android:textSize="10sp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:textColor="@color/blue_primary"
+                    app:strokeColor="@color/blue_primary"
+                    app:cornerRadius="6dp"
+                    android:layout_marginEnd="4dp" />
+
+                <Button
+                    android:id="@+id/btnPresetApartment"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:text="Apartment"
+                    android:textSize="10sp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:textColor="@color/blue_primary"
+                    app:strokeColor="@color/blue_primary"
+                    app:cornerRadius="6dp" />
+            </LinearLayout>
+
+            <!-- Address & City -->
+            <EditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Address (e.g. Rhapta Road, Westlands)"
+                android:textColor="@color/theme_text_primary"
+                android:textColorHint="@color/navy_text_muted"
+                android:layout_marginBottom="12dp" />
+
+            <EditText
+                android:id="@+id/etCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="City"
+                android:text="Nairobi"
+                android:textColor="@color/theme_text_primary"
+                android:textColorHint="@color/navy_text_muted"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Beds & Baths -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp">
+
+                <EditText
+                    android:id="@+id/etBedrooms"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Bedrooms"
+                    android:inputType="number"
+                    android:textColor="@color/theme_text_primary"
+                    android:textColorHint="@color/navy_text_muted"
+                    android:layout_marginEnd="6dp" />
+
+                <EditText
+                    android:id="@+id/etBathrooms"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Bathrooms"
+                    android:inputType="number"
+                    android:textColor="@color/theme_text_primary"
+                    android:textColorHint="@color/navy_text_muted" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etSquareFootage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Square footage (sq ft)"
+                android:inputType="numberDecimal"
+                android:textColor="@color/theme_text_primary"
+                android:textColorHint="@color/navy_text_muted"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Contact Phone (Strict Kenyan Digit Count) -->
+            <EditText
+                android:id="@+id/etContactPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Kenyan Phone (10 digits 07... or 12 digits +254...)"
+                android:inputType="phone"
+                android:textColor="@color/theme_text_primary"
+                android:textColorHint="@color/navy_text_muted"
+                android:layout_marginBottom="12dp" />
+
+            <EditText
+                android:id="@+id/etContactEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contact Email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/theme_text_primary"
+                android:textColorHint="@color/navy_text_muted"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Submit Button -->
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="Save Property to Database"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/blue_primary"
+                app:cornerRadius="10dp"
+                android:layout_marginBottom="24dp" />
+
         </LinearLayout>
-
-        <EditText
-            android:id="@+id/etSquareFootage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Square footage (sq ft)"
-            android:inputType="numberDecimal"
-            android:textColor="@color/theme_text_primary"
-            android:textColorHint="@color/navy_text_muted"
-            android:layout_marginBottom="12dp" />
-
-        <EditText
-            android:id="@+id/etContactPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Contact Phone (+254...)"
-            android:inputType="phone"
-            android:textColor="@color/theme_text_primary"
-            android:textColorHint="@color/navy_text_muted"
-            android:layout_marginBottom="12dp" />
-
-        <EditText
-            android:id="@+id/etContactEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Contact Email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/theme_text_primary"
-            android:textColorHint="@color/navy_text_muted"
-            android:layout_marginBottom="20dp" />
-
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:text="Save Property to Database"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/blue_primary"
-            app:cornerRadius="10dp"
-            android:layout_marginBottom="24dp" />
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

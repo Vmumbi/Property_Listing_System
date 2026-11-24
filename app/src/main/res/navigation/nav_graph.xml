@@ -64,6 +64,10 @@
         android:name="com.example.property_listing_system.member5.PropertyListFragment"
         android:label="Property Catalog"
         tools:layout="@layout/fragment_property_list">
+        <argument
+            android:name="filterMyListings"
+            android:defaultValue="false"
+            app:argType="boolean" />
         <action
             android:id="@+id/action_to_addEditProperty"
             app:destination="@id/addEditPropertyFragment" />

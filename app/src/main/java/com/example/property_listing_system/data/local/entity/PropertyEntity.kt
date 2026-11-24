@@ -6,12 +6,6 @@ import androidx.room.PrimaryKey
 
 /**
  * PropertyEntity represents the persistent data model for properties in SQLite via Room.
- *
- * Indexed on:
- * - remoteId: for fast remote synchronization lookups
- * - propertyType: for indexed type filtering
- * - price: for efficient price range queries
- * - status: for quick availability status lookups
  */
 @Entity(
     tableName = "properties",
@@ -20,7 +14,8 @@ import androidx.room.PrimaryKey
         Index(value = ["propertyType"]),
         Index(value = ["price"]),
         Index(value = ["status"]),
-        Index(value = ["isFavorite"])
+        Index(value = ["isFavorite"]),
+        Index(value = ["agentEmail"])
     ]
 )
 data class PropertyEntity(
@@ -46,7 +41,9 @@ data class PropertyEntity(
     val isFavorite: Boolean = false,
     val status: String = STATUS_AVAILABLE, // "AVAILABLE", "RENTED", "SOLD", "UNDER_OFFER"
     val createdTimestamp: Long = System.currentTimeMillis(),
-    val remoteId: String? = null // Maps to RemotePropertyDto.id for sync
+    val remoteId: String? = null,
+    val pricePeriod: String = PERIOD_MONTHLY, // "Monthly", "Yearly", "Total"
+    val agentEmail: String = "" // Tracks owner agent for "My Listed Properties"
 ) {
     companion object {
         const val STATUS_AVAILABLE = "AVAILABLE"
@@ -60,5 +57,9 @@ data class PropertyEntity(
         const val TYPE_MANSIONETTE = "Mansionette"
         const val TYPE_COMMERCIAL = "Commercial"
         const val TYPE_LAND = "Land"
+
+        const val PERIOD_MONTHLY = "Monthly"
+        const val PERIOD_YEARLY = "Yearly"
+        const val PERIOD_TOTAL = "Total"
     }
 }

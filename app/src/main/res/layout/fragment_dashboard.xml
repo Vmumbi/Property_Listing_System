@@ -13,14 +13,14 @@
         android:padding="20dp"
         android:gravity="center_horizontal">
 
-        <!-- Top Bar: Title & Dark/Light Mode Switch -->
+        <!-- Top Header & Dark Mode Switch -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="24dp">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -29,22 +29,23 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvPortalTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Property Listing"
+                    android:text="Property Portal"
                     android:textSize="22sp"
                     android:textStyle="bold"
                     android:textColor="@color/theme_text_primary" />
 
                 <TextView
+                    android:id="@+id/tvUserWelcome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Integrated Multi-User Hub"
-                    android:textSize="12sp"
+                    android:text="Signed in as: User"
+                    android:textSize="13sp"
                     android:textColor="@color/theme_text_secondary" />
             </LinearLayout>
 
-            <!-- Theme Mode Switch -->
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switchDarkMode"
                 android:layout_width="wrap_content"
@@ -55,183 +56,168 @@
                 app:useMaterialThemeColors="true" />
         </LinearLayout>
 
-        <!-- Active User Profile & Role Card -->
-        <com.google.android.material.card.MaterialCardView
+        <!-- BUYER PORTAL ACTIONS -->
+        <LinearLayout
+            android:id="@+id/layoutBuyerActions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="0dp"
-            app:strokeWidth="1.5dp"
-            app:strokeColor="@color/blue_primary"
-            app:cardBackgroundColor="@color/blue_light_bg">
+            android:orientation="vertical"
+            android:visibility="gone">
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btnBuyerBrowse"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="54dp"
+                android:text="🏢  Browse Properties &amp; Contacts"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/blue_primary"
+                app:cornerRadius="10dp"
+                android:layout_marginBottom="14dp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+            <Button
+                android:id="@+id/btnBuyerValuation"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="📍  Property Valuation Calculator"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue_primary"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:strokeColor="@color/blue_primary"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="10dp"
+                android:layout_marginBottom="24dp" />
+        </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tvUserName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="User Name"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/blue_primary" />
-
-                        <TextView
-                            android:id="@+id/tvUserEmail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="user@domain.com"
-                            android:textSize="13sp"
-                            android:textColor="@color/navy_text_secondary" />
-                    </LinearLayout>
-
-                    <!-- Role Badge -->
-                    <TextView
-                        android:id="@+id/tvRoleBadge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Buyer / Tenant"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:background="@drawable/ic_launcher_background"
-                        android:backgroundTint="@color/blue_primary"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="5dp" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tvRoleDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Role specifications description"
-                    android:textSize="11sp"
-                    android:textColor="@color/navy_text_muted"
-                    android:layout_marginTop="8dp" />
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Live Database Stats Card -->
-        <com.google.android.material.card.MaterialCardView
+        <!-- AGENT PORTAL ACTIONS -->
+        <LinearLayout
+            android:id="@+id/layoutAgentActions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/theme_card_border"
-            app:cardBackgroundColor="@color/theme_card">
+            android:orientation="vertical"
+            android:visibility="gone">
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btnAgentBrowseAll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="54dp"
+                android:text="🏢  Browse All Properties"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/blue_primary"
+                app:cornerRadius="10dp"
+                android:layout_marginBottom="12dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Room Database Status"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/blue_primary" />
+            <Button
+                android:id="@+id/btnAgentMyListings"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="📋  My Listed Properties"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue_primary"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:strokeColor="@color/blue_primary"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="10dp"
+                android:layout_marginBottom="12dp" />
 
-                <TextView
-                    android:id="@+id/tvDatabaseStats"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Connecting to Room database..."
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/theme_text_primary"
-                    android:layout_marginTop="3dp" />
+            <Button
+                android:id="@+id/btnAgentAddProperty"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="➕  Add Property (Offline / Online)"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue_primary"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:strokeColor="@color/blue_primary"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="10dp"
+                android:layout_marginBottom="12dp" />
 
-                <TextView
-                    android:id="@+id/tvSubStats"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="StateFlow live observation active"
-                    android:textSize="11sp"
-                    android:textColor="@color/theme_text_secondary"
-                    android:layout_marginTop="2dp" />
+            <Button
+                android:id="@+id/btnAgentUploadOffline"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="☁️  Upload Offline Properties to Cloud"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue_primary"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:strokeColor="@color/blue_primary"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="10dp"
+                android:layout_marginBottom="24dp" />
+        </LinearLayout>
 
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Navigation Action Buttons (Blue & White) -->
-        <Button
-            android:id="@+id/btnBrowseProperties"
+        <!-- ADMIN PORTAL ACTIONS -->
+        <LinearLayout
+            android:id="@+id/layoutAdminActions"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:text="🏢  Browse Properties (RecyclerView)"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/blue_primary"
-            app:cornerRadius="10dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-        <Button
-            android:id="@+id/btnAddProperty"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:text="➕  Add New Property (Agent / Admin)"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/blue_primary"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="@color/blue_primary"
-            app:strokeWidth="1.5dp"
-            app:cornerRadius="10dp"
-            android:layout_marginBottom="12dp" />
+            <Button
+                android:id="@+id/btnAdminBrowseAll"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="🏢  Browse &amp; Manage All Properties"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/blue_primary"
+                app:cornerRadius="10dp"
+                android:layout_marginBottom="12dp" />
 
-        <Button
-            android:id="@+id/btnValuationSync"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:text="📊  AI Valuation &amp; WorkManager Sync"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/blue_primary"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="@color/blue_primary"
-            app:strokeWidth="1.5dp"
-            app:cornerRadius="10dp"
-            android:layout_marginBottom="12dp" />
+            <Button
+                android:id="@+id/btnAdminAddProperty"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="➕  Add New Property (Monthly / Yearly)"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue_primary"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:strokeColor="@color/blue_primary"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="10dp"
+                android:layout_marginBottom="12dp" />
 
-        <Button
-            android:id="@+id/btnDatabaseConsole"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:text="💾  Room Database Console (Admin)"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/blue_primary"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="@color/blue_primary"
-            app:strokeWidth="1.5dp"
-            app:cornerRadius="10dp"
-            android:layout_marginBottom="24dp" />
+            <Button
+                android:id="@+id/btnAdminDatabaseConsole"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="💾  Room Database Console"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue_primary"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:strokeColor="@color/blue_primary"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="10dp"
+                android:layout_marginBottom="12dp" />
 
-        <!-- Logout Button -->
+            <Button
+                android:id="@+id/btnAdminSyncCloud"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="☁️  Upload Offline Properties to Cloud"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue_primary"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:strokeColor="@color/blue_primary"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="10dp"
+                android:layout_marginBottom="24dp" />
+        </LinearLayout>
+
+        <!-- Sign Out Button -->
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
