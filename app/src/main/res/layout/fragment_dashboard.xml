@@ -1,31 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp">
+    android:fillViewport="true"
+    android:background="#F8F9FA">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Property Dashboard"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp" />
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center_horizontal">
 
-    <TextView
-        android:id="@+id/tvWelcomeUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to your property listing system."
-        android:textSize="16sp"
-        android:layout_marginBottom="24dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Property Listing System"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#1A237E"
+            android:layout_marginTop="16dp" />
 
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout" />
+        <TextView
+            android:id="@+id/tvWelcomeUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Integrated 7-Member Application Hub"
+            android:textSize="14sp"
+            android:textColor="#5C6BC0"
+            android:layout_marginBottom="16dp" />
 
-</LinearLayout>
+        <!-- Live Database Stats Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#C5CAE9">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:background="#E8EAF6">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Database &amp; Sync State (Member 2 &amp; 7)"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#3949AB" />
+
+                <TextView
+                    android:id="@+id/tvDatabaseStats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Connecting to Room database..."
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#1A237E"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:id="@+id/tvSubStats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Offline-first Room database active"
+                    android:textSize="12sp"
+                    android:textColor="#7986CB"
+                    android:layout_marginTop="2dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Navigation Buttons -->
+        <Button
+            android:id="@+id/btnBrowseProperties"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="🏢  Browse Properties (RecyclerView)"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"
+            app:cornerRadius="8dp" />
+
+        <Button
+            android:id="@+id/btnAddProperty"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="➕  Add New Property (Interactive Form)"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"
+            app:cornerRadius="8dp" />
+
+        <Button
+            android:id="@+id/btnValuationSync"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="📊  Valuation &amp; WorkManager Sync"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"
+            app:cornerRadius="8dp" />
+
+        <Button
+            android:id="@+id/btnDatabaseConsole"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="💾  Room Database Console &amp; CRUD"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            app:cornerRadius="8dp" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Logout"
+            android:textColor="#C62828"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="#EF9A9A"
+            app:cornerRadius="8dp" />
+
+    </LinearLayout>
+</ScrollView>

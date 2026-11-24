@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.property_listing_system.R
+import com.example.property_listing_system.data.validation.UserValidator
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -20,6 +21,21 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val tvRegisterRedirect = view.findViewById<TextView>(R.id.tvRegisterRedirect)
 
         btnLogin.setOnClickListener {
+            val email = etEmail.text.toString().trim()
+            val password = etPassword.text.toString()
+
+            val validation = UserValidator.validateLogin(email, password)
+            if (!validation.isValid) {
+                if (email.isEmpty() || !email.contains("@")) {
+                    etEmail.error = validation.errorMessage
+                    etEmail.requestFocus()
+                } else {
+                    etPassword.error = validation.errorMessage
+                    etPassword.requestFocus()
+                }
+                return@setOnClickListener
+            }
+
             // Navigate to Dashboard and clear backstack so user can't go back to login
             findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
         }
